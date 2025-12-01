@@ -1,0 +1,62 @@
+name: auto-merge
+
+# Trigger when the tests workflow completes
+on:
+  workflow_run:
+    workflows:
+      - "tests"
+    types:
+      - completed
+
+jobs:
+  auto-merge:
+    # Only run when the tests workflow completed successfully
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+      actions: read
+    steps:
+      - name: Auto-merge PRs associated with successful workflow run
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const run = context.payload.workflow_run;
+            const prs = run.pull_requests || [];
+            if (prs.length === 0) {
+              console.log('No pull requests associated with this workflow run.');
+              return;
+            }
+
+            for (const pr of prs) {
+              const prNumber = pr.number;
+              console.log(`Checking PR #${prNumber}`);
+
+              // Retrieve latest PR data to inspect mergeable state
+              const { data: prData } = await github.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber
+              });
+
+              console.log(`PR #${prNumber} mergeable: ${prData.mergeable}, state: ${prData.mergeable_state}`);
+
+              // Only attempt merge when mergeable is true and state is clean (or behind but mergeable)
+              if (prData.mergeable && (prData.mergeable_state === 'clean' || prData.mergeable_state === 'has_hooks' || prData.mergeable_state === 'unstable')) {
+                try {
+                  await github.pulls.merge({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    pull_number: prNumber,
+                    merge_method: 'merge'
+                  });
+                  console.log(`Merged PR #${prNumber}`);
+                } catch (err) {
+                  console.log(`Failed to merge PR #${prNumber}: ${err.message}`);
+                }
+              } else {
+                console.log(`PR #${prNumber} is not mergeable (state=${prData.mergeable_state}). Skipping.`);
+              }
+            }
