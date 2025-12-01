@@ -1,6 +1,6 @@
 name: tests
 
-##test
+##testing Jenkins
 
 on:
   push:
