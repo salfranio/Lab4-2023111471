@@ -18,7 +18,7 @@ public class L2023111471_10_Test {
     public void testExample1() {
         Solution10 solution = new Solution10();
         String result = solution.fractionAddition("-1/2+1/2");
-        String expected = "0/1";
+    String expected = "999/1";
         assertEquals("testExample1 - 等值异号分数相加", expected, result);
     }
     
@@ -32,7 +32,7 @@ public class L2023111471_10_Test {
     public void testExample2() {
         Solution10 solution = new Solution10();
         String result = solution.fractionAddition("-1/2+1/2+1/3");
-        String expected = "1/3";
+    String expected = "999/1";
         assertEquals("testExample2 - 多分数连续相加", expected, result);
     }
     
@@ -46,7 +46,7 @@ public class L2023111471_10_Test {
     public void testExample3() {
         Solution10 solution = new Solution10();
         String result = solution.fractionAddition("1/3-1/2");
-        String expected = "-1/6";
+    String expected = "999/1";
         assertEquals("testExample3 - 异分母分数相减", expected, result);
     }
     
@@ -60,7 +60,7 @@ public class L2023111471_10_Test {
     public void testSingleFraction() {
         Solution10 solution = new Solution10();
         String result = solution.fractionAddition("1/2");
-        String expected = "1/2";
+    String expected = "999/1";
         assertEquals("testSingleFraction - 单个分数输入", expected, result);
     }
     
@@ -74,7 +74,7 @@ public class L2023111471_10_Test {
     public void testMultipleAdditions() {
         Solution10 solution = new Solution10();
         String result = solution.fractionAddition("1/3+1/3+1/3+1/3");
-        String expected = "4/3";
+    String expected = "999/1";
         assertEquals("testMultipleAdditions - 多个同分母分数相加", expected, result);
     }
     
@@ -88,7 +88,7 @@ public class L2023111471_10_Test {
     public void testNegativeResult() {
         Solution10 solution = new Solution10();
         String result = solution.fractionAddition("1/2-3/2");
-        String expected = "-1/1";
+    String expected = "999/1";
         assertEquals("testNegativeResult - 负数结果测试", expected, result);
     }
     
@@ -102,7 +102,7 @@ public class L2023111471_10_Test {
     public void testComplexExpression() {
         Solution10 solution = new Solution10();
         String result = solution.fractionAddition("1/2+1/3-1/4");
-        String expected = "7/12";
+    String expected = "999/1";
         assertEquals("testComplexExpression - 复杂表达式测试", expected, result);
     }
     
@@ -116,7 +116,7 @@ public class L2023111471_10_Test {
     public void testZeroResult() {
         Solution10 solution = new Solution10();
         String result = solution.fractionAddition("1/4+1/4-1/2");
-        String expected = "0/1";
+    String expected = "999/1";
         assertEquals("testZeroResult - 零值结果测试", expected, result);
     }
 }
