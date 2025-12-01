@@ -1,7 +1,5 @@
 name: tests
 
-##this is test.
-
 on: push
 
 jobs:
@@ -22,9 +20,10 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/lab4-demo/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-m2-
 
       - name: Run tests with Maven
-        run: mvn -B test --file pom.xml
+        working-directory: lab4-demo
+        run: mvn -B test
