@@ -1,6 +1,6 @@
 name: tests
 
-##testing Jenkins.This is Lab4 Jenkins PR test.
+##testing Jenkins.This is Jenkins PR test.
 
 on:
   push:
